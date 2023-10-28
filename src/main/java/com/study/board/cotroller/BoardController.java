@@ -34,6 +34,8 @@ public class BoardController {
     public String boardList(Model model) {
 
         model.addAttribute("list", boardService.boardList());
+        // boardService.boardList()로부터 조회한 게시물 목록을 "list"라는 이름으로 모델에 추가합니다.
+        // 이렇게 모델에 데이터를 추가하면 해당 데이터는 뷰(템플릿)에서 ${list} 형태로 사용가능
 
         return "boardlist";
     }

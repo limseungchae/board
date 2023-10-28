@@ -29,8 +29,9 @@
 
             </thead>
             <tbody>
-                <tr  th:each="board: ${list}"> <!-- each 반복문 : board 가 없어질때까지 반복-->
-                    <td th:text="${board.id}"></td>
+            <!--th : 타임리프 표현식-->
+                <tr th:each="board: ${list}"> <!-- each 반복문 : board 가 없어질때까지 반복-->
+                    <td th:text="${board.id}"></td> <!-- text 텍스트 값을 지정-->
                     <td th:text="${board.title}"></td>
                 </tr>
             </tbody>
