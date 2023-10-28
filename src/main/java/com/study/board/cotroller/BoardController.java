@@ -28,4 +28,10 @@ public class BoardController {
 
         return "";
     }
+
+    @GetMapping("/board/list")
+    public String boardList() {
+
+        return "boardlist";
+    }
 }
