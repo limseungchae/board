@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!-- 타임리프 문법사용 -->
 <head>
     <meta charset="UTF-8">
     <title>게시물 작성폼</title>
@@ -34,6 +34,7 @@
             <input name="title" type="text">
             <textarea name="content"></textarea>
             <button type="submit">작성</button>
+            <a th:href="@{/board/list}">게시글 목록</a>
         </form>
 
     </div>
