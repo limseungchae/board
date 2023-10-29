@@ -31,8 +31,10 @@
             <tbody>
             <!--th : 타임리프 표현식-->
                 <tr th:each="board: ${list}"> <!-- each 반복문 : board 가 없어질때까지 반복-->
-                    <td th:text="${board.id}"></td> <!-- text 텍스트 값을 지정-->
-                    <td th:text="${board.title}"></td>
+                    <td th:text="${board.id}">번호</td> <!-- text 텍스트 값을 지정-->
+                    <td><a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목</a></td> <!-- href 링크를 생성할 때 URL 지정-->
+                    <!-- http://localhost:8080/board/view?id={board.id} -->
+                    <!-- $ = 변수 삽임, @ = url(링크) 삽입, () 파라미터 값, {} 파라미터 URL -->
                 </tr>
             </tbody>
         </table>
