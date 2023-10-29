@@ -5,6 +5,7 @@ import com.study.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,5 +47,13 @@ public class BoardController {
         model.addAttribute("board", boardService.boardView(id)); // html에 ${board} 선언 추가,  ID를 사용하여 특정 게시물을 식별하고 조회
 
         return "boardview";
+    }
+
+    @GetMapping("/board/delete")
+    public String boardDelete(Integer id) {
+
+        boardService.boardDelete(id); // id 기반으로 서비스에서 dlete 한다.
+
+        return "redirect:/board/list"; // boardlist 할경우작동하지 않음. "redirect:/board/list"는 서버로 새로운 요청을 보냄.
     }
 }
