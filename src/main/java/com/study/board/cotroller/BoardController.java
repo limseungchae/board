@@ -39,4 +39,12 @@ public class BoardController {
 
         return "boardlist";
     }
+
+    @GetMapping("/board/view") // lodcalhost:8080/board/view?id=1 (parameter)
+    public String boardView(Model model, Integer id) { // model 뷰전달, Integer 인수타입의 id 를 가지고온다.
+
+        model.addAttribute("board", boardService.boardView(id)); // html에 ${board} 선언 추가,  ID를 사용하여 특정 게시물을 식별하고 조회
+
+        return "boardview";
+    }
 }
