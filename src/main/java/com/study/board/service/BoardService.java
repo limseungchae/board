@@ -25,4 +25,10 @@ public class BoardService {
 
         return boardRepository.findAll(); // 데이터베이스에서 모든 게시물을 조회하여 Board 엔티티의 리스트로 반환합니다
     }
+
+    // 특정 게시글 불러오기 (상세조회)
+    public Board boardView(Integer id) { //메서드의 인수(parameter)로서, id라는 변수를 전달
+
+        return boardRepository.findById(id).get(); // ID를 DB 찾아오고 .get() 메소드를 호출하여 실제 객체를 반환합니다.
+    }
 }
