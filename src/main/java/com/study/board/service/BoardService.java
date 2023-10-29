@@ -31,4 +31,10 @@ public class BoardService {
 
         return boardRepository.findById(id).get(); // ID를 DB 찾아오고 .get() 메소드를 호출하여 실제 객체를 반환합니다.
     }
+
+    // 특정 게시글 삭제
+    public void boardDelete(Integer board) {
+
+        boardRepository.deleteById(board); // boardRepository를 사용하여 Board 객체를 삭제 (데이터베이스에 삭제)
+    }
 }
