@@ -22,11 +22,14 @@ public class BoardController {
     }
 
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board) { // Entity @Data로 인해서 변경 가능
+    public String boardWritePro(Board board, Model model) { // Entity @Data로 인해서 변경 가능
 
         boardService.write(board); // 게시글 정보를 데이터베이스에 저장
 
-        return "redirect:/board/list";
+        model.addAttribute("message", "글 작성이 완료되었습니다.");
+        model.addAttribute("searchUrl", "/board/list");
+
+        return "message";
     }
 
     @GetMapping("/board/list")
