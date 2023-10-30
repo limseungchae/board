@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><!-- 타임리프 문법사용 -->
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 작성폼</title>
+</head>
+
+<style>
+    /* .layout 클래스 스타일 설정 */
+    .layout {
+        width: 500px;     /* 너비를 500px로 설정 */
+        margin: 0 auto;   /* 좌우 가운데 정렬, 위아래 여백 없음 */
+        margin-top: 40px; /* 맨 위에서 40px 떨어져 위치 */
+    }
+
+    /* .layout 클래스 내부의 input 요소 스타일 설정 */
+    .layout input {
+        width: 100%;       /* 너비를 부모 요소의 100%로 설정 */
+        box-sizing: border-box; /* 크기를 내부 여백과 테두리를 포함한 크기로 계산 */
+    }
+
+    /* .layout 클래스 내부의 textarea 요소 스타일 설정 */
+    .layout textarea {
+        width: 100%;       /* 너비를 부모 요소의 100%로 설정 */
+        margin-top: 10px;  /* 위에서 10px 떨어져 위치 */
+        min-height: 300px; /* 최소 높이를 300px로 설정 */
+    }
+
+</style>
+
+<body>
+    <div class="layout">
+        <form th:action="@{/board/update/{id}(id=${board.id})}" method="post"> <!-- url로 post 요청-->
+            <input name="title" type="text" th:value="${board.title}"> <!-- intput 경우 불러오기 -->
+            <textarea name="content" th:text="${board.content}">내용</textarea>
+            <button type="submit">수정</button>
+            <a th:href="@{/board/list}">게시글 목록</a>
+        </form>
+    </div>
+</body>
+</html>
