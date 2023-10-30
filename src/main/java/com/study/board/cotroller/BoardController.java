@@ -2,13 +2,11 @@ package com.study.board.cotroller;
 
 import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -56,4 +54,13 @@ public class BoardController {
 
         return "redirect:/board/list"; // boardlist 할경우작동하지 않음. "redirect:/board/list"는 서버로 새로운 요청을 보냄.
     }
+
+    @GetMapping("/board/modify/{id}")
+    public String boardModify(@PathVariable("id") Integer id, Model model) {   // URL에서 추출한 'id' 값을 사용하여 'model'을 가져오기.
+
+        model.addAttribute("board", boardService.boardView(id)); // html ${board} 사용.  ID를 사용하여 특정 게시물을 식별하고 조회
+
+        return "boardmodify";
+    }
+
 }
