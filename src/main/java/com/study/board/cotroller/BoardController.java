@@ -26,7 +26,7 @@ public class BoardController {
 
         boardService.write(board); // 게시글 정보를 데이터베이스에 저장
 
-        return "boardwrite";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/board/list")
