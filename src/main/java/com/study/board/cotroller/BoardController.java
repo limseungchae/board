@@ -63,4 +63,15 @@ public class BoardController {
         return "boardmodify";
     }
 
+    @PostMapping("/board/update/{id}")
+    public String boardUpdate(@PathVariable("id") Integer id, Board board) { // URL에서 추출한 'id' 값을 사용하여 'board' 데이터를 데이터베이스(DB)에서 수정하기.
+
+        Board boardTemp = boardService.boardView(id); // 기존 게시물 가지고오기
+        boardTemp.setTitle(board.getTitle()); // get 가지고오기, set 덮어쓰기
+        boardTemp.setContent(board.getContent());
+
+        boardService.write(boardTemp); // 수정된 게시물 write(save) DB에 업데이트
+
+        return "redirect:/board/list"; // 수정완료시 ulr 게시물 목록으로
+    }
 }
