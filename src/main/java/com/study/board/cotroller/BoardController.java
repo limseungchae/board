@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,10 +22,10 @@ public class BoardController {
         return "boardwrite"; // boardwrite.html 문서를 보여줌
     }
 
-    @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model) { // Entity @Data로 인해서 변경 가능
+    @PostMapping("/board/writepro") // Entity @Data로 인해서 변경 가능, throws Exception = 예외발생시 대비
+    public String boardWritePro(Board board, Model model, MultipartFile file) throws Exception {
 
-        boardService.write(board); // 게시글 정보를 데이터베이스에 저장
+        boardService.write(board, file); // 게시글 정보를 데이터베이스에 저장
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");
@@ -67,13 +68,13 @@ public class BoardController {
     }
 
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board) { // URL에서 추출한 'id' 값을 사용하여 'board' 데이터를 데이터베이스(DB)에서 수정하기.
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file) throws Exception { // URL에서 추출한 'id' 값을 사용하여 'board' 데이터를 데이터베이스(DB)에서 수정하기.
 
         Board boardTemp = boardService.boardView(id); // 기존 게시물 가지고오기
         boardTemp.setTitle(board.getTitle()); // get 가지고오기, set 덮어쓰기
         boardTemp.setContent(board.getContent());
 
-        boardService.write(boardTemp); // 수정된 게시물 write(save) DB에 업데이트
+        boardService.write(boardTemp, file); // 수정된 게시물 write(save) DB에 업데이트
 
         return "redirect:/board/list"; // 수정완료시 ulr 게시물 목록으로
     }
