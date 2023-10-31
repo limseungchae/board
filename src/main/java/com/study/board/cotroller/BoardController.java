@@ -4,6 +4,9 @@ import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +36,11 @@ public class BoardController {
         return "message";
     }
 
-    @GetMapping("/board/list")
-    public String boardList(Model model) {
+    @GetMapping("/board/list") // /board/list?page=0&size=10 / page=순서번호 / size=목록수
+    public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        // @PageableDefault(번호,크기,순서,정렬방향)
 
-        model.addAttribute("list", boardService.boardList());
+        model.addAttribute("list", boardService.boardList(pageable));
         // boardService.boardList()로부터 조회한 게시물 목록을 "list"라는 이름으로 모델에 추가합니다.
         // 이렇게 모델에 데이터를 추가하면 해당 데이터는 뷰(템플릿)에서 ${list} 형태로 사용가능
 
