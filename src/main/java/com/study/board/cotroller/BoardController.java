@@ -38,10 +38,17 @@ public class BoardController {
     }
 
     @GetMapping("/board/list") // /board/list?page=0&size=10 / page=순서번호 / size=목록수
-    public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        // @PageableDefault(번호,크기,순서,정렬방향)
+    public String boardList(Model model,     // @PageableDefault(번호,크기,순서,정렬방향)
+                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            String searchKeyword) {
 
-        Page<Board> list = boardService.boardList(pageable);
+         Page<Board> list = null;
+
+        if(searchKeyword == null) {
+            list = boardService.boardList(pageable); // 검색이 null 일경우 그대로 나오고
+        }else {
+             list = boardService.boardSearchList(searchKeyword, pageable); // 아닐경우 조건에 따라 정렬
+        }
 
         model.addAttribute("list", list);
         // boardService.boardList()로부터 조회한 게시물 목록을 "list"라는 이름으로 모델에 추가합니다.
