@@ -4,6 +4,7 @@ import com.study.board.entity.Board;
 import com.study.board.service.BoardService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -40,9 +41,19 @@ public class BoardController {
     public String boardList(Model model, @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         // @PageableDefault(번호,크기,순서,정렬방향)
 
-        model.addAttribute("list", boardService.boardList(pageable));
+        Page<Board> list = boardService.boardList(pageable);
+
+        model.addAttribute("list", list);
         // boardService.boardList()로부터 조회한 게시물 목록을 "list"라는 이름으로 모델에 추가합니다.
         // 이렇게 모델에 데이터를 추가하면 해당 데이터는 뷰(템플릿)에서 ${list} 형태로 사용가능
+
+        int nowPage = list.getPageable().getPageNumber() + 1; // 현재페이지 0 에서 시작하기때문에  0-> 1 변경
+        int startPage = Math.max(nowPage - 4, 1);  // 현재 페이지 6 일경우 2, 최소값은 1로 제한.
+        int endPage = Math.min(nowPage + 5, pageable.getPageSize()); // 현재 6 일경우 11, 최대값은 페이지 수에 맞게 조절
+
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "boardlist";
     }
