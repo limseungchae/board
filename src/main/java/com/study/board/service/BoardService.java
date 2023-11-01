@@ -50,6 +50,12 @@ public class BoardService {
         return boardRepository.findById(id).get(); // ID를 DB 찾아오고 .get() 메소드를 호출하여 실제 객체를 반환합니다.
     }
 
+    // 검색 기능
+    public Page<Board> boardSearchList(String sarchKeyword, Pageable pageable) {
+
+        return boardRepository.findByTitleContaining(sarchKeyword, pageable);
+    }
+
     // 특정 게시글 삭제
     public void boardDelete(Integer board) {
 
