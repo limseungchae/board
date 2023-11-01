@@ -40,6 +40,12 @@
             </tbody>
         </table>
 
+        <!-- th:block : 굳이 태그로 감쌀 필요가 없는 블럭을 타임리프 문법으로 쓸 때 사용-->
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">  <!-- 번호들을 순서대로 넣을꺼고(시작,끝) 번호이다 -->
+            <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page - 1})}" th:text="${page}"></a> <!--페이지가 현재페이지가 아닐경우 -1 이동한다 -->
+            <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong> <!-- 페이지가 현재페이지 경우 나오고 strong = 강조, 색상이 빨간색 -->
+        </th:block>
+
     </div>
 
 </body>
