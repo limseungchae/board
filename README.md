@@ -29,3 +29,41 @@
 
 ## 삭제 완료
 ![list2.png](src%2Fmain%2Fresources%2Fstatic%2Ffiles%2Flist2.png)
+
+## MY sql
+# 스키마 설정 jdbc:mysql://localhost:3306/board
+create schema board;
+
+USE Board; -- 데이터베이스 선택
+
+# 테이블 생성 및 컬럼 추가
+CREATE TABLE board (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(45) NOT NULL,
+    content Text NOT NULL
+);
+
+
+# 테스트 데이터 프로시저 생성 1~120 까지 제목,내용 생성
+DELIMITER $$
+
+CREATE PROCEDURE testDataInsert()
+BEGIN
+    DECLARE i INT DEFAULT 1;
+
+    WHILE i <= 120 DO
+            INSERT INTO board(title, content)
+            VALUES(concat('제목',i), concat('내용',i));
+            SET i = i + 1;
+        END WHILE;
+END$$
+DELIMITER $$
+
+# testDataInsert (테스트 데이터) 불러오기
+call testDataInsert;
+
+
+# 컬럼 추가
+ALTER TABLE board
+    ADD filename VARCHAR(150),
+    ADD filepath VARCHAR(300);
