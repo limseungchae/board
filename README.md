@@ -35,7 +35,7 @@
 CREATE SCHEMA board;
 ```
 
-## 데이터베이스 선택
+## 스키마 선택
 ```sql
 USE board;
 ```
