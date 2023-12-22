@@ -33,10 +33,15 @@
 ## MySQL 스키마 설정
 ```sql
 CREATE SCHEMA board;
+```
 
+## 데이터베이스 선택
+```sql
 USE board;
+```
 
--- 테이블 생성
+## 테이블 생성
+```sql
 CREATE TABLE board (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(45) NOT NULL,
@@ -44,8 +49,10 @@ CREATE TABLE board (
     filename VARCHAR(150),
     filepath VARCHAR(300)
 );
+```
 
--- 테스트 데이터 프로시저 생성 1~120 까지 제목,내용 생성
+## 테스트 데이터 프로시저 생성 1~120 까지 제목,내용 생성
+```sql
 DELIMITER $$
 
 CREATE PROCEDURE testDataInsert()
@@ -59,6 +66,9 @@ BEGIN
         END WHILE;
 END$$
 DELIMITER $$
+```
 
--- testDataInsert (테스트 데이터) 불러오기
+## testDataInsert (테스트 데이터) 불러오기
+```sql
 CALL testDataInsert;
+```
